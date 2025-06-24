@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express"
-import {kenx} from "./database/knex"
+import {knex} from "./database/knex"
 
 const app = express()
 app.use(express.json())
@@ -7,7 +7,8 @@ app.use(express.json())
 app.post("/courses", async (request: Request, response: Response) => {
   const {name} = request.body
 
-  await kenx("courses").insert({name})
+  await knex("courses").insert({name})
+  //await knex.raw("INSERT INTO courses (name) VALUES (?)", [name])
 
   response.status(201).json()
 })
